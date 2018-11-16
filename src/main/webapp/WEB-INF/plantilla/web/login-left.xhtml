@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title><ui:insert name="title">ReservacionAulas</ui:insert></title>
+    <link rel="icon" href="/Programathon_2018/imagenes/iconos/ucr-favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/Programathon_2018/estilo/web.css" type="text/css" media="screen" />
+    <meta name="viewport" content="width=450"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'/>
+</h:head>
+
+<h:body>
+
+    <h:form>
+        <div class="cintillo-general">
+            <div class="superior"/>
+            <div class="inferior">
+                <div class="left">
+                    <!-- <a href="http://www.ucr.ac.cr" target="_blank" alt="Universidad de Costa Rica" class="logo-ucr"/> -->
+                    <a href="https://www.alccicr.org/" target="_blank"
+                       class="alcci-link">
+                        <img src="http://www.ticoguias.com/images/logos/beff4b5c.png" alt="" class="alcci-logo-general" />
+                        <span class="alcci-text-general">Asociación Lucha Contra el Cáncer Infantil</span>
+                    </a>
+                </div>
+                <div class="right">
+                    <span style="">#{sessionController.userName}</span>
+                    <a title="Salir">
+                        <p:commandLink id="nonAjax" actionListener="#{sessionController.logout}" ajax="false">
+                            <i class="material-icons white-text">exit_to_app</i>
+                        </p:commandLink>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </h:form>
+
+    <div class="contenido-login-izquierda">
+        <div class="bloque-login-izquierda" >
+            <ui:insert name="formulario">
+                Contenido por defecto
+            </ui:insert>
+        </div>
+    </div>
+
+    <div class="pie">
+        <div class="creditos">
+            <p class="izquierda" >Desarrollado por <a class="inie">Code Spitters</a> | <a class="desarrolladores">Créditos</a> </p>
+            <p class="derecha" >©2018 Programathon</p>
+        </div>
+    </div>
+
+</h:body>
+
+</html>

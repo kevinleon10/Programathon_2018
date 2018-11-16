@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view contentType="text/html">
+    <h:body>
+        <ui:composition template="/WEB-INF/plantilla/web/login.xhtml">
+            <ui:define name="title">Registro de menor</ui:define>
+
+            <ui:define name="formulario">
+
+                <h:form id="frmLogin" enctype="application/x-www-form-urlencoded">
+                    <p:growl id="gwlMensaje" showDetail="false" sticky="false" life="10000"/>
+
+                    <div class="login">
+
+                        <h:panelGroup>
+                            <h:panelGrid columns="1" cellpadding="0" cellspacing="20" class="credenciales">
+
+                                <div class="panelTitulo">
+                                    <h1>Registro de menor</h1>
+                                </div>
+
+                                <h:panelGrid id="pgChildrenName" columns="2" cellpadding="0" cellspacing="5">
+                                    <i class="material-icons prefix">account_box</i>
+                                    <h:panelGroup>
+                                        <p:inputText id="itChildrenName" autocomplete="off" value="#{addChildController.childName}"/>
+                                        <p:watermark for="itChildrenName" value="Nombre completo"/>
+                                    </h:panelGroup>
+                                </h:panelGrid>
+
+                                <h:panelGrid id="pgChildrenSsn" columns="2" cellpadding="0" cellspacing="5">
+                                    <i class="material-icons prefix">vpn_key</i>
+                                    <h:panelGroup>
+                                        <p:inputText id="itChildrenSsn" autocomplete="off" value="#{addChildController.childSSN}"
+                                                     required="true"/>
+                                        <p:watermark for="itChildrenSsn" value="Número de cédula"/>
+                                    </h:panelGroup>
+                                </h:panelGrid>
+
+                                <h:panelGrid id="pgChildrenAge" columns="2" cellpadding="0" cellspacing="5">
+                                    <i class="material-icons prefix">exposure</i>
+                                    <h:panelGroup>
+                                        <p:inputText id="itChildrenAge" style="width: 88%; margin: -5px; border-top: none;border-bottom: 1px #9e9e9e solid; border-left: none; border-right: none;" value="#{addChildController.childAge}" />
+                                        <p:watermark for="itChildrenAge" value="Edad actual"/>
+                                    </h:panelGroup>
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2" cellpadding="0" cellspacing="5">
+                                    <i class="material-icons prefix">face</i>
+                                    <p:outputLabel for="gender" value="Gender: " />
+                                    <p:selectOneMenu id="gender" autoWidth="false" value="#{addChildController.childGender}" style="width:150px">
+                                        <f:selectItem itemLabel="Seleccione un género" itemValue=""  noSelectionOption="true" />
+                                        <f:selectItems value="#{addChildController.genders}" var="gender" itemLabel="#{childGender}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+
+                                <h:panelGrid id="pgChildrenEthnicGroup" columns="2" cellpadding="0" cellspacing="5">
+                                    <i class="material-icons prefix">tag_faces</i>
+                                    <h:panelGroup>
+                                        <p:inputText id="itChildrenEthnicGroup" autocomplete="off"  required="true" value="#{addChildController.childEthnicGroup}"/>
+                                        <p:watermark for="itChildrenEthnicGroup" value="Étnia"/>
+                                    </h:panelGroup>
+                                </h:panelGrid>
+
+                                <p:commandButton id="cbIngresar" value="Registrar"/>
+
+                                <div class="panelNotaAlPie">
+                                   <a href="/Programathon_2018/index.html">Volver</a>
+                                </div>
+
+                            </h:panelGrid>
+                        </h:panelGroup>
+
+                    </div>
+
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</f:view>
+</html>

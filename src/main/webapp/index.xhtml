@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view contentType="text/html">
+    <h:body>
+        <ui:composition template="/WEB-INF/plantilla/web/login.xhtml">
+            <ui:define name="title">Iniciar sesión</ui:define>
+
+            <ui:define name="formulario">
+
+                <h:form id="frmLogin" enctype="application/x-www-form-urlencoded">
+                    <p:growl id="gwlMensaje" showDetail="false" sticky="false" life="10000" />
+
+                    <div class="login">
+
+                        <h:panelGroup>
+                            <h:panelGrid columns="1" cellpadding="0" cellspacing="20" class="credenciales">
+
+                                <div class="panelTitulo">
+                                    <h1>Detección Temprana</h1>
+                                </div>
+
+                                <div class="panelSubTitulo">
+                                    <p>Bienvenido al portal, para continuar por favor ingrese su usuario y contraseña</p>
+                                </div>
+
+                                <h:panelGrid id="pgNombreUsuario" columns="2" cellpadding="0" cellspacing="5">
+                                    <i class="material-icons prefix">email</i>
+                                    <h:panelGroup>
+                                        <p:inputText id="itCorreoUsuario" autocomplete="off" value="#{loginController.userEmail}" required="true" requiredMessage="El campo de correo es requerido"/>
+                                        <p:watermark for="itCorreoUsuario"  value="Correo electrónico" />
+                                    </h:panelGroup>
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2" cellpadding="0" cellspacing="5">
+                                    <i class="material-icons prefix">lock</i>
+                                    <h:panelGroup>
+                                        <p:password id="pwdContrasenna" autocomplete="off" value="#{loginController.userPassword}" required="true" requiredMessage="El campo de contraseña es requerido" />
+                                        <p:watermark for="pwdContrasenna" value="Contraseña" />
+                                    </h:panelGroup>
+                                </h:panelGrid>
+
+                                <div class="text-xs-center">
+                                    <table class="captcha-table">
+                                        <tr>
+                                            <td>
+                                               <!-- Me tiene como loco!
+                                               <p:captcha label="Captcha" secure="true" requiredMessage="Por favor use el captcha"
+                                                           language="es" styleClass="captcha-div"/>
+                                                           -->
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <p:commandButton id="cbIngresar" value="Ingresar" update="@form" actionListener="#{loginController.authenticate}" ajax="false" />
+
+                                <div class="panelNotaAlPie">
+                                    <!--<a href="/Programathon_2018/forgot_password/forgot-password.html">¿Olvidó su contraseña?</a>-->
+                                    <a href="/Programathon_2018/sign_up/sign-up.html">Registrarse</a>
+                                </div>
+
+                            </h:panelGrid>
+                        </h:panelGroup>
+
+                    </div>
+
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</f:view>
+</html>

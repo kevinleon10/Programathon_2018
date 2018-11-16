@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view contentType="text/html">
+<h:body>
+    <ui:composition template="/WEB-INF/plantilla/web/login.xhtml">
+        <ui:define name="title">Registrarse</ui:define>
+
+        <ui:define name="formulario">
+
+            <h:form id="frmLogin" enctype="application/x-www-form-urlencoded">
+                <p:growl id="gwlMensaje" showDetail="false" sticky="false" life="10000"/>
+
+                <div class="login">
+
+                    <h:panelGroup>
+                        <h:panelGrid columns="1" cellpadding="0" cellspacing="20" class="credenciales">
+
+                            <div class="panelTitulo">
+                                <h1>Consulta Médica Virtual</h1>
+                            </div>
+
+                            <h:panelGrid id="pgIdUsuario" columns="2" cellpadding="0" cellspacing="5">
+                                <i class="material-icons prefix">vpn_key</i>
+                                <h:panelGroup>
+                                    <p:inputText type="number" id="itIdUsuario" autocomplete="off" value="#{signUpController.userId}" required="true" requiredMessage="El campo de cédula es requerido"/>
+                                    <p:watermark for="itIdUsuario" value="Número de cédula"/>
+                                </h:panelGroup>
+                            </h:panelGrid>
+
+                            <h:panelGrid id="pgNombreUsuario" columns="2" cellpadding="0" cellspacing="5">
+                                <i class="material-icons prefix">account_box</i>
+                                <h:panelGroup>
+                                    <p:inputText id="itNombreUsuario" autocomplete="off"
+                                                 value="#{signUpController.userName}" required="true" requiredMessage="El campo de nombre es requerido"/>
+                                    <p:watermark for="itNombreUsuario" value="Nombre completo"/>
+                                </h:panelGroup>
+                            </h:panelGrid>
+
+                            <h:panelGrid id="pgCorreoUsuario" columns="2" cellpadding="0" cellspacing="5">
+                                <i class="material-icons prefix">email</i>
+                                <h:panelGroup>
+                                    <p:inputText id="itCorreoUsuario" autocomplete="off"
+                                                 value="#{signUpController.userEmail}" required="true" requiredMessage="El campo de correo es requerido"/>
+                                    <p:watermark for="itCorreoUsuario" value="Correo electrónico"/>
+                                </h:panelGroup>
+                            </h:panelGrid>
+
+                            <h:panelGrid id="pgTelefonoUsuario" columns="2" cellpadding="0" cellspacing="5">
+                                <i class="material-icons prefix">phone</i>
+                                <h:panelGroup>
+                                    <p:inputText id="itTelefonoUsuario" autocomplete="off"
+                                                 value="#{signUpController.userPhone}" required="true" requiredMessage="El campo de teléfono es requerido"/>
+                                    <p:watermark for="itTelefonoUsuario" value="Teléfono"/>
+                                </h:panelGroup>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2" cellpadding="0" cellspacing="5" id="passwordGrid">
+                                <i class="material-icons prefix">lock</i>
+                                <h:panelGroup>
+                                    <p:password id="pwdContrasenna" autocomplete="off"
+                                                value="#{signUpController.userPassword}" required="true" requiredMessage="El campo de contraseña es requerido"/>
+                                    <p:watermark for="pwdContrasenna" value="Contraseña"/>
+                                </h:panelGroup>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2" cellpadding="0" cellspacing="5" id="confirmPasswordGrid">
+                                <i class="material-icons prefix">check_circle</i>
+                                <h:panelGroup>
+                                    <p:password id="pwdConfirmarContrasenna" autocomplete="off"
+                                                value="#{signUpController.userConfirmPassword}" required="true" requiredMessage="El campo de confirmación de contraseña es requerido"/>
+                                    <p:watermark for="pwdConfirmarContrasenna" value="Confirmar contraseña"/>
+                                </h:panelGroup>
+                            </h:panelGrid>
+
+                            <p:commandButton id="cbIngresar" value="Registrarse"
+                                             update="@form"
+                                             actionListener="#{signUpController.createUser}"/>
+
+                            <div class="panelNotaAlPie">
+                                <p>¿Ya tiene una cuenta creada? <a
+                                        href="/Programathon_2018/index.html">Entrar</a></p>
+                            </div>
+
+                        </h:panelGrid>
+                    </h:panelGroup>
+
+                </div>
+
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+</f:view>
+</html>

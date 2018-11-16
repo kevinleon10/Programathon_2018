@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:body>
+    <ui:composition template="/WEB-INF/plantilla/web/general.xhtml">
+        <ui:define name="title">Solicitudes informáticas | Portal INIE</ui:define>
+
+        <ui:define name="formulario">
+
+            <div class="contenido-general">
+                <div class="bloque-general">
+                    <h:form id="frmAddChild" enctype="application/x-www-form-urlencoded">
+                        <p:growl id="gwlMensaje" showDetail="true" sticky="false" life="10000"/>
+
+                        <div class="menu-interno">
+                            <div class="nombre-modulo">
+                                <h1 class="nombre-submodulo">Registro de Menores</h1>
+                            </div>
+                            <div class="menu-secundario">
+                                <div class="menu" id="menu">
+                                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a>
+                                    <div class="mobile-user-data">
+                                        <img class="mobile-user-photo"
+                                             src="https://png.icons8.com/ios/1600/user-male-circle-filled.png"/>
+                                        <h1 class="mobile-user-name">#{sessionController.userName}</h1>
+                                        <a href="#" class="mobile-sign-out" title="Salir"><i
+                                                class="material-icons white-text">exit_to_app</i></a>
+                                    </div>
+                                    <h1 class="nombre-submodulo">Registro de Menores</h1>
+                                    <p:commandButton class="item" value="Regresar" actionListener="#{addChildController.cancelRegister}" immediate="true"/>
+                                </div>
+                                <div id="main">
+                                    <span style="padding: 2px 10px 6px 10px; font-size:40px;cursor:pointer;background: transparent;color: #2b6797; float:right; margin: -3px 0px;position: fixed;top: 50px;left: 80%;"
+                                          onclick="openNav()">&#9776;</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="seccion-compartida">
+
+                            <div class="contenido-pagina color3" style="padding: 2%; margin: 20px auto 70px auto;">
+
+                                <div class="panelTitulo">
+                                    <h1>Registro de menor</h1>
+                                </div>
+
+                                <h:panelGrid class="pgFormulario" columns="2" cellpadding="5">
+
+                                    <p:outputLabel value="Nombre:"/>
+                                    <p:inputText id="itChildrenName" autocomplete="off"
+                                                 value="#{addChildController.childName}"
+                                                 required="true" requiredMessage="El campo de nombre es requerido"/>
+
+                                    <p:outputLabel value="Cédula:"/>
+                                    <p:inputText id="itChildrenSsn" autocomplete="off" type="number"
+                                                 value="#{addChildController.childSSN}"
+                                                 required="true" requiredMessage="El campo de cédula es requerido"/>
+
+                                    <p:outputLabel value="Años cumplidos:"/>
+                                    <p:inputText id="itChildrenAge" type="number"
+                                                 value="#{addChildController.childAge}"
+                                                required="true" requiredMessage="El campo de edad es requerido"/>
+
+                                    <p:outputLabel value="Género:"/>
+                                    <p:selectOneMenu id="gender" autoWidth="false"
+                                                     value="#{addChildController.childGender}">
+                                        <f:selectItem itemLabel="Seleccione un género" itemValue=""/>
+                                        <f:selectItems value="#{addChildController.genders}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="Grupo étnico:"/>
+                                    <p:selectOneMenu id="etn" autoWidth="false"
+                                                     value="#{addChildController.childEthnicGroup}">
+                                        <f:selectItem itemLabel="Seleccione una etnia" itemValue=""/>
+                                        <f:selectItems value="#{addChildController.ethnicGroups}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="Relación:"/>
+                                    <p:selectOneMenu id="rel" autoWidth="false"
+                                                     value="#{addChildController.childRelation}">
+                                        <f:selectItem itemLabel="Seleccione una relación" itemValue=""/>
+                                        <f:selectItems value="#{addChildController.relations}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+
+                            </div>
+
+                            <h:panelGroup class="panelBotonesAceptarCancelar">
+                                <p:commandButton id="clAceptar" value="Agregar" styleClass="btnAceptar" actionListener="#{addChildController.registerChild}" update="@form"/>
+                                <p:commandButton id="clCancelar" value="Cancelar" styleClass="btnCancelar" actionListener="#{addChildController.cancelRegister}" immediate="true" />
+                            </h:panelGroup>
+
+                        </div>
+                    </h:form>
+
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

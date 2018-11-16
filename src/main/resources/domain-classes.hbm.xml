@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="codeSpitters.programathon_2018.model.Administrator" table="ADMINISTRATOR" catalog="CODE_SPITTERS" optimistic-lock="version">
+        <id name="userSsn" type="string">
+            <column name="USER_SSN" length="35" />
+            <generator class="foreign">
+                <param name="property">user</param>
+            </generator>
+        </id>
+        <one-to-one name="user" class="codeSpitters.programathon_2018.model.User" constrained="true"></one-to-one>
+    </class>
+    <class name="codeSpitters.programathon_2018.model.Antecedent" table="ANTECEDENT" catalog="CODE_SPITTERS" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="children" class="codeSpitters.programathon_2018.model.Children" fetch="select">
+            <column name="CHILDREN_SSN" length="35" not-null="true" />
+        </many-to-one>
+        <property name="disease" type="string">
+            <column name="DISEASE" length="65535" not-null="true" />
+        </property>
+        <property name="durationDays" type="int">
+            <column name="DURATION_DAYS" not-null="true" />
+        </property>
+        <property name="treatment" type="string">
+            <column name="TREATMENT" length="65535" not-null="true" />
+        </property>
+        <property name="medicine" type="string">
+            <column name="MEDICINE" length="30" not-null="false" />
+        </property>
+        <property name="date" type="timestamp">
+            <column name="DATE" length="19" />
+        </property>
+        <set name="antecedentDocuments" table="ANTECEDENT_DOCUMENT" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ANTECEDENT_ID" />
+            </key>
+            <one-to-many class="codeSpitters.programathon_2018.model.AntecedentDocument" />
+        </set>
+    </class>
+    <class name="codeSpitters.programathon_2018.model.AntecedentDocument" table="ANTECEDENT_DOCUMENT" catalog="CODE_SPITTERS" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="antecedent" class="codeSpitters.programathon_2018.model.Antecedent" fetch="select">
+            <column name="ANTECEDENT_ID" />
+        </many-to-one>
+        <property name="document" type="binary">
+            <column name="DOCUMENT" not-null="true" />
+        </property>
+        <property name="mimeType" type="string">
+            <column name="MIME_TYPE" length="50" not-null="true" />
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="65535" />
+        </property>
+        <property name="name" type="string">
+            <column name="NAME" length="30" />
+        </property>
+        <property name="source" type="string">
+            <column name="SOURCE" length="40" />
+        </property>
+    </class>
+    <class name="codeSpitters.programathon_2018.model.Children" table="CHILDREN" catalog="CODE_SPITTERS" optimistic-lock="version">
+        <id name="ssn" type="string">
+            <column name="SSN" length="35" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="responsible" class="codeSpitters.programathon_2018.model.Responsible" fetch="select">
+            <column name="RESPONSIBLE_SSN" length="35" not-null="true" />
+        </many-to-one>
+        <property name="fullName" type="string">
+            <column name="FULL_NAME" length="35" not-null="true" />
+        </property>
+
+        <property name="status" type="string">
+            <column name="STATUS" length="100" not-null="false" />
+        </property>
+        <property name="age" type="int">
+            <column name="AGE" not-null="true" />
+        </property>
+        <property name="gender" type="string">
+            <column name="GENDER" length="10" not-null="true" />
+        </property>
+        <property name="ethnicGroup" type="string">
+            <column name="ETHNIC_GROUP" length="50" not-null="true" />
+        </property>
+        <property name="responsibleRelation" type="string">
+            <column name="RESPONSIBLE_RELATION" length="10" not-null="true" />
+        </property>
+        <set name="antecedents" table="ANTECEDENT" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CHILDREN_SSN" length="35" not-null="true" />
+            </key>
+            <one-to-many class="codeSpitters.programathon_2018.model.Antecedent" />
+        </set>
+        <set name="medicalCases" table="MEDICAL_CASE" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CHILDREN_SSN" length="35" not-null="true" />
+            </key>
+            <one-to-many class="codeSpitters.programathon_2018.model.MedicalCase" />
+        </set>
+        <set name="dailyPhysicalStatuses" table="DAILY_PHYSICAL_STATUS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CHILDREN_SSN" length="35" not-null="true" />
+            </key>
+            <one-to-many class="codeSpitters.programathon_2018.model.DailyPhysicalStatus" />
+        </set>
+    </class>
+    <class name="codeSpitters.programathon_2018.model.DailyPhysicalStatus" table="DAILY_PHYSICAL_STATUS" catalog="CODE_SPITTERS" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="children" class="codeSpitters.programathon_2018.model.Children" fetch="select">
+            <column name="CHILDREN_SSN" length="35" not-null="true" />
+        </many-to-one>
+        <property name="date" type="timestamp">
+            <column name="DATE" length="19" />
+        </property>
+        <property name="status" type="string">
+            <column name="STATUS" length="100" />
+        </property>
+    </class>
+    <class name="codeSpitters.programathon_2018.model.MedicalCase" table="MEDICAL_CASE" catalog="CODE_SPITTERS" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="children" class="codeSpitters.programathon_2018.model.Children" fetch="select">
+            <column name="CHILDREN_SSN" length="35" not-null="true" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="NAME" not-null="true" />
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="500" not-null="true" />
+        </property>
+        <property name="summary" type="string">
+            <column name="SUMMARY" length="500" not-null="true" />
+        </property>
+        <property name="status" type="string">
+            <column name="STATUS" length="15" not-null="true" />
+        </property>
+        <property name="hasAppointment" type="boolean">
+            <column name="HAS_APPOINTMENT" not-null="true" />
+        </property>
+        <property name="prediagnostic" type="string">
+            <column name="PREDIAGNOSTIC" length="65535" />
+        </property>
+        <set name="symptoms" table="SYMPTOM" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="MEDICAL_CASE_ID" />
+            </key>
+            <one-to-many class="codeSpitters.programathon_2018.model.Symptom" />
+        </set>
+    </class>
+    <class name="codeSpitters.programathon_2018.model.Responsible" table="RESPONSIBLE" catalog="CODE_SPITTERS" optimistic-lock="version">
+        <id name="userSsn" type="string">
+            <column name="USER_SSN" length="35" />
+            <generator class="foreign">
+                <param name="property">user</param>
+            </generator>
+        </id>
+        <one-to-one name="user" class="codeSpitters.programathon_2018.model.User" constrained="true"></one-to-one>
+        <set name="childrens" table="CHILDREN" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="RESPONSIBLE_SSN" length="35" not-null="true" />
+            </key>
+            <one-to-many class="codeSpitters.programathon_2018.model.Children" />
+        </set>
+    </class>
+    <class name="codeSpitters.programathon_2018.model.Symptom" table="SYMPTOM" catalog="CODE_SPITTERS" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="medicalCase" class="codeSpitters.programathon_2018.model.MedicalCase" fetch="select">
+            <column name="MEDICAL_CASE_ID" />
+        </many-to-one>
+        <property name="date" type="timestamp">
+            <column name="DATE" length="19" not-null="true" />
+        </property>
+        <property name="physicalStatus" type="string">
+            <column name="PHYSICAL_STATUS" length="100" />
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="65535" />
+        </property>
+        <property name="source" type="string">
+            <column name="SOURCE" length="40" />
+        </property>
+        <set name="symptomPhotos" table="SYMPTOM_PHOTO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="SYMPTOM_ID" not-null="true" />
+            </key>
+            <one-to-many class="codeSpitters.programathon_2018.model.SymptomPhoto" />
+        </set>
+    </class>
+    <class name="codeSpitters.programathon_2018.model.SymptomPhoto" table="SYMPTOM_PHOTO" catalog="CODE_SPITTERS" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="symptom" class="codeSpitters.programathon_2018.model.Symptom" fetch="select">
+            <column name="SYMPTOM_ID" not-null="true" />
+        </many-to-one>
+        <property name="document" type="binary">
+            <column name="DOCUMENT" not-null="true" />
+        </property>
+        <property name="mimeType" type="string">
+            <column name="MIME_TYPE" length="50" not-null="true" />
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="65535" />
+        </property>
+        <property name="name" type="string">
+            <column name="NAME" length="30" />
+        </property>
+        <property name="source" type="string">
+            <column name="SOURCE" length="40" />
+        </property>
+    </class>
+    <class name="codeSpitters.programathon_2018.model.User" table="USER" catalog="CODE_SPITTERS" optimistic-lock="version">
+        <id name="ssn" type="string">
+            <column name="SSN" length="35" />
+            <generator class="assigned" />
+        </id>
+        <property name="fullName" type="string">
+            <column name="FULL_NAME" length="35" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="PASSWORD" length="250" not-null="true" />
+        </property>
+        <property name="phoneNumber" type="int">
+            <column name="PHONE_NUMBER" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="EMAIL" length="250" not-null="true" unique="true" />
+        </property>
+        <one-to-one name="administrator" class="codeSpitters.programathon_2018.model.Administrator"></one-to-one>
+        <one-to-one name="responsible" class="codeSpitters.programathon_2018.model.Responsible"></one-to-one>
+    </class>
+</hibernate-mapping>
